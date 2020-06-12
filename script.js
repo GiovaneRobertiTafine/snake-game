@@ -11,6 +11,8 @@ snake[0] = {
     y: 8 * box,
 };
 
+let direction = 'right';
+
 function createBG() {
     // Propriedade que trabalha com o estilo do canvas
     context.fillStyle = 'lightgreen';
@@ -26,5 +28,43 @@ function createSnake() {
     }
 }
 
-createBG();
-createSnake();
+// Escutando o evento do teclado
+document.addEventListener('keydown', update);
+
+// prettier-ignore
+function update (event) {
+    if (event.keyCode === 37 && direction !== 'right') direction = 'left';
+    if (event.keyCode === 38 && direction !== 'down') direction = 'up';
+    if (event.keyCode === 39 && direction !== 'left') direction = 'right';
+    if (event.keyCode === 40 && direction !== 'up') direction = 'down';
+}
+
+// Iniciando o jogo
+function initialGame() {
+    createBG();
+    createSnake();
+
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
+
+    // Verificando o movimento do snake
+    if (direction === 'right') snakeX += box;
+    if (direction === 'left') snakeX -= box;
+
+    if (direction === 'up') snakeY -= box;
+    if (direction === 'down') snakeY += box;
+
+    // Retirando o ultimo quadrado
+    snake.pop();
+
+    let newHead = {
+        x: snakeX,
+        y: snakeY,
+    };
+
+    // Setando os novos valores do snake
+    snake.unshift(newHead);
+}
+
+// Verificando o jogo a cada segundo
+let jogo = setInterval(initialGame, 100);
