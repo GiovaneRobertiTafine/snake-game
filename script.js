@@ -11,11 +11,18 @@ snake[0] = {
     y: 8 * box,
 };
 
+let food = {
+    // Limitando a faixa de numeros, multiplicando por 15 vai até 14, 0,9 * 15 max 14
+    // somando 1 para que chegue ate 15, 16 ultrapassa o BG
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box,
+};
+
 let direction = 'right';
 
 function createBG() {
     // Propriedade que trabalha com o estilo do canvas
-    context.fillStyle = 'lightgreen';
+    context.fillStyle = '#202030';
 
     // Propriedade para setar o tamanho x, y, largura, altura
     context.fillRect(0, 0, 16 * box, 16 * box);
@@ -26,6 +33,12 @@ function createSnake() {
         context.fillStyle = '#303030';
         context.fillRect(snake[i].x, snake[i].y, box, box);
     }
+}
+
+function createFood() {
+    // console.log(Math.random() * 16 + 1);
+    context.fillStyle = '#431020';
+    context.fillRect(food.x, food.y, box, box);
 }
 
 // Escutando o evento do teclado
@@ -46,9 +59,6 @@ function initialGame() {
     if (snake[0].y > 15 * box && direction === 'down') snake[0].y = 0;
     if (snake[0].y < 0 && direction === 'up') snake[0].y = 16 * box;
 
-    createBG();
-    createSnake();
-
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
 
@@ -59,8 +69,14 @@ function initialGame() {
     if (direction === 'up') snakeY -= box;
     if (direction === 'down') snakeY += box;
 
-    // Retirando o ultimo quadrado
-    snake.pop();
+    if (snakeX !== food.x || snakeY !== food.y) {
+        // Retirando o ultimo quadrado
+        snake.pop();
+    } else {
+        console.warn(snake);
+        food.x = Math.floor(Math.random() * 15 + 1) * box;
+        food.y = Math.floor(Math.random() * 15 + 1) * box;
+    }
 
     let newHead = {
         x: snakeX,
@@ -69,6 +85,12 @@ function initialGame() {
 
     // Setando os novos valores do snake
     snake.unshift(newHead);
+
+    createBG();
+    createSnake();
+    createFood();
+
+    console.log(snake[0].x + ' / y: ' + snake[0].y);
 }
 
 // Verificando o jogo a cada segundo
