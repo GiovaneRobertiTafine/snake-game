@@ -23,7 +23,7 @@ let direction = 'right';
 function createBG() {
     // Propriedade que trabalha com o estilo do canvas
     context.fillStyle = '#202030';
-
+    context.filter = 'blur(0.8px)';
     // Propriedade para setar o tamanho x, y, largura, altura
     context.fillRect(0, 0, 16 * box, 16 * box);
 }
@@ -31,6 +31,8 @@ function createBG() {
 function createSnake() {
     for (i = 0; i < snake.length; i++) {
         context.fillStyle = '#303030';
+        context.strokeStyle = '#202030';
+        context.strokeRect(snake[i].x, snake[i].y, box, box);
         context.fillRect(snake[i].x, snake[i].y, box, box);
     }
 }
@@ -53,6 +55,13 @@ function update(event) {
 
 // Iniciando o jogo
 function initialGame() {
+    // Verificando se o snake se chocou com o proprio corpo
+    for (let i = 1; i < snake.length; i++) {
+        if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
+            clearInterval(jogo);
+        }
+    }
+
     // Verificando se o snake passou da tela
     if (snake[0].x > 15 * box && direction === 'right') snake[0].x = 0;
     if (snake[0].x < 0 && direction === 'left') snake[0].x = 16 * box;
