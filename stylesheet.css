@@ -31,3 +31,9 @@ canvas {
     border-radius: 10px;
     border: #202020 1px solid;
 }
+
+/* nivel do jogo */
+
+#levelInput {
+    width: 20px;
+}

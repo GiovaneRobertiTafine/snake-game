@@ -3,8 +3,23 @@ let canvas = document.getElementById('snake');
 // O contexto ele rendereiza o conteudo que estara dentro do canvas
 let context = canvas.getContext('2d');
 
+// span para o score
+const counterScore = document.getElementById('score');
+
+// input do nivel
+let level = document.querySelector("[id='levelInput']");
+level.value = '1';
+
+// botao do nivel
+let buttonLevel = document.querySelector("[name='buttonLevel']");
+buttonLevel.innerHTML = '+';
+
+let levelGame = 200;
+
 let box = 32;
 let snake = [];
+
+// Pontos
 let score = 0;
 
 snake[0] = {
@@ -85,7 +100,7 @@ function initialGame() {
         snake.pop();
     } else {
         score += 1;
-        document.getElementById('score').innerHTML = 'Score: ' + score;
+        counterScore.innerHTML = 'Score: ' + score;
         food.x = Math.floor(Math.random() * 15 + 1) * box;
         food.y = Math.floor(Math.random() * 15 + 1) * box;
     }
@@ -102,8 +117,25 @@ function initialGame() {
     createSnake();
     createFood();
 
-    console.log(snake[0].x + ' / y: ' + snake[0].y);
+    // console.log(snake[0].x + ' / y: ' + snake[0].y);
+}
+
+// Level do jogo metodo
+function levelUp() {
+    if (level.value === '3') {
+        level.value = '1';
+        levelGame = 200;
+        buttonLevel.innerHTML = '+';
+    } else {
+        if (level.value === '2') buttonLevel.innerHTML = '-';
+
+        level.value = parseInt(level.value) + 1;
+        levelGame -= 50;
+    }
+
+    clearInterval(jogo);
+    jogo = setInterval(initialGame, levelGame);
 }
 
 // Verificando o jogo a cada segundo
-let jogo = setInterval(initialGame, 200);
+let jogo = setInterval(initialGame, levelGame);
