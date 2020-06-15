@@ -5,6 +5,7 @@ let context = canvas.getContext('2d');
 
 let box = 32;
 let snake = [];
+let score = 0;
 
 snake[0] = {
     x: 8 * box,
@@ -78,11 +79,13 @@ function initialGame() {
     if (direction === 'up') snakeY -= box;
     if (direction === 'down') snakeY += box;
 
+    // Verificando se comeu alguma fruta
     if (snakeX !== food.x || snakeY !== food.y) {
         // Retirando o ultimo quadrado
         snake.pop();
     } else {
-        console.warn(snake);
+        score += 1;
+        document.getElementById('score').innerHTML = 'Score: ' + score;
         food.x = Math.floor(Math.random() * 15 + 1) * box;
         food.y = Math.floor(Math.random() * 15 + 1) * box;
     }
@@ -103,4 +106,4 @@ function initialGame() {
 }
 
 // Verificando o jogo a cada segundo
-let jogo = setInterval(initialGame, 100);
+let jogo = setInterval(initialGame, 200);
