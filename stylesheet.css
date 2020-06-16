@@ -37,3 +37,17 @@ canvas {
 #levelInput {
     width: 20px;
 }
+
+#startGame {
+    position: absolute;
+    text-align: center;
+    line-height: 50px;
+    width: 18%;
+    height: 50px;
+    background-color: #e4e4e4;
+    color: #202020;
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

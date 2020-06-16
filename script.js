@@ -22,6 +22,10 @@ let snake = [];
 // Pontos
 let score = 0;
 
+// Start Game
+let startGame = true;
+let jogo;
+
 snake[0] = {
     x: 8 * box,
     y: 8 * box,
@@ -63,6 +67,11 @@ function createFood() {
 document.addEventListener('keydown', update);
 
 function update(event) {
+    if (event.keyCode === 32) {
+        startGame = false;
+        direction = 'right';
+        document.querySelector("[id='startGame']").style.display = 'none';
+    }
     if (event.keyCode === 37 && direction !== 'right') direction = 'left';
     if (event.keyCode === 38 && direction !== 'down') direction = 'up';
     if (event.keyCode === 39 && direction !== 'left') direction = 'right';
@@ -71,6 +80,11 @@ function update(event) {
 
 // Iniciando o jogo
 function initialGame() {
+    createBG();
+    createSnake();
+    createFood();
+    if (startGame) return;
+
     // Verificando se o snake se chocou com o proprio corpo
     for (let i = 1; i < snake.length; i++) {
         if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
@@ -113,10 +127,6 @@ function initialGame() {
     // Setando os novos valores do snake
     snake.unshift(newHead);
 
-    createBG();
-    createSnake();
-    createFood();
-
     // console.log(snake[0].x + ' / y: ' + snake[0].y);
 }
 
@@ -137,5 +147,4 @@ function levelUp() {
     jogo = setInterval(initialGame, levelGame);
 }
 
-// Verificando o jogo a cada segundo
-let jogo = setInterval(initialGame, levelGame);
+jogo = setInterval(initialGame, levelGame);
