@@ -14,6 +14,10 @@ level.value = '1';
 let buttonLevel = document.querySelector("[name='buttonLevel']");
 buttonLevel.innerHTML = '+';
 
+// Caixa de Start & Reset
+const boxStart = document.querySelector("[name='start']");
+const boxReset = document.querySelector("[name='reset']");
+
 let levelGame = 200;
 
 let box = 32;
@@ -67,10 +71,29 @@ function createFood() {
 document.addEventListener('keydown', update);
 
 function update(event) {
+    // Verificando se pressionou space bar para começar
     if (event.keyCode === 32) {
-        startGame = false;
-        direction = 'right';
-        document.querySelector("[id='startGame']").style.display = 'none';
+        if (startGame) {
+            console.log(snake.length);
+            if (snake.length > 1) {
+                console.log('reset');
+                snake = [];
+                snake[0] = {
+                    x: 8 * box,
+                    y: 8 * box,
+                };
+
+                food.x = Math.floor(Math.random() * 15 + 1) * box;
+                food.y = Math.floor(Math.random() * 15 + 1) * box;
+                jogo = setInterval(initialGame, levelGame);
+                boxReset.style.display = 'none';
+                score = 0;
+                counterScore.innerHTML = 'Score: ' + score;
+            }
+            startGame = false;
+            direction = 'right';
+            boxStart.style.display = 'none';
+        }
     }
     if (event.keyCode === 37 && direction !== 'right') direction = 'left';
     if (event.keyCode === 38 && direction !== 'down') direction = 'up';
@@ -89,6 +112,8 @@ function initialGame() {
     for (let i = 1; i < snake.length; i++) {
         if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
             clearInterval(jogo);
+            boxReset.style.display = 'block';
+            startGame = true;
         }
     }
 
@@ -148,3 +173,5 @@ function levelUp() {
 }
 
 jogo = setInterval(initialGame, levelGame);
+
+initialGame();
