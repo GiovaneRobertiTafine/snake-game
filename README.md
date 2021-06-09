@@ -1,15 +1,15 @@
 <h3 align="center">Snake Game :snake:</h3>
-<h4 align="center">Classic game of snake in Javascript puro</h4>
+<h4 align="center">Jogo clássico Snake em Javascript puro</h4>
 
-⭕ **Problem:**</br>
-Create the snake game in javascript.
+:o: **Problema:**<br>
+Criar o jogo Snake em javascript.
 
-✔️ **Solution:**</br>
-Inspired by an exercise carried out on the <a href="https://digitalinnovation.one/">Digital Innovation One</a> platform with functional improvements in the game.
+:heavy_check_mark: **Solução:**<br>
+Inspirado por um exercício realizado no <a href="https://digitalinnovation.one/">Digital Innovation One</a>, com melhorias funcionais no jogo.
 
-🎯 **Impact:**</br>
+:dart: **Impacto:**<br>
 Improved knowledge of language and logic.
 
-:bicyclist: **Run:**</br>
+:bicyclist: **Corra:**</br>
 
--   Open archive [index.html](https://github.com/Giovane-Roberti-Tafine/snake-game/blob/master/index.html)
+-   Abra o arquivo [index.html](https://github.com/Giovane-Roberti-Tafine/snake-game/blob/master/index.html)
